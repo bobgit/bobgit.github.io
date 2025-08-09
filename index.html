@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>B.V.C国際合同会社</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -389,10 +390,17 @@
          languageMenu.classList.toggle('hidden');      
        });      
        
-       // Close language menu when clicking outside      
-       document.addEventListener('click', function() {      
-         const languageMenu = document.getElementById('language-menu');      
-         languageMenu.classList.add('hidden');      
+        // Close language menu when clicking outside      
+       document.addEventListener('click', function(event) {      
+         const languageMenu = document.getElementById('language-menu');
+         const languageToggle = document.getElementById('language-toggle');
+         
+         // Only close if menu exists and click is not on toggle or menu
+         if (languageMenu && languageToggle && 
+             !languageToggle.contains(event.target) && 
+             !languageMenu.contains(event.target)) {
+           languageMenu.classList.add('hidden');      
+         }
        });      
        
        // Testimonial slider functionality      
@@ -441,17 +449,35 @@
          showSlide(newIndex);      
        }, 5000);      
        
-       // Language switching functionality      
-       document.querySelectorAll('.language-option').forEach(option =>      
-         option.addEventListener('click', function() {      
-           const lang = this.getAttribute('data-lang');      
-           switchLanguage(lang);      
-           
-           // Update language menu and close it      
-           document.getElementById('current-language').textContent = this.textContent;      
-           document.getElementById('language-menu').classList.add('hidden');      
-         })      
-       );      
+        // Language switching functionality      
+       document.querySelectorAll('.language-option').forEach(option => {
+         // Add defensive check for option existence
+         if (option) {
+           option.addEventListener('click', function(e) {      
+             e.stopPropagation(); // Prevent event from bubbling
+             const lang = this.getAttribute('data-lang');      
+             
+             if (!lang || !['zh', 'en', 'ja'].includes(lang)) {
+               console.error('Invalid language:', lang);
+               return; // Exit if invalid language code  
+             }
+             
+             switchLanguage(lang);      
+             
+             // Update language menu and close it
+             const currentLanguageEl = document.getElementById('current-language');      
+             const languageMenu = document.getElementById('language-menu');      
+             
+             if (currentLanguageEl) {
+               currentLanguageEl.textContent = this.textContent.trim();      
+             }
+             
+             if (languageMenu) {
+               languageMenu.classList.add('hidden');      
+             }
+           });
+         }
+       });      
        
        function switchLanguage(lang) {      
          // Update all translatable elements based on selected language      
@@ -466,8 +492,9 @@
            document.getElementById('testimonial-position-1').textContent = '公司总经理';      
            document.getElementById('testimonial-content-2').textContent = '"B.V.C国际联合公司团队具有非凡的能力，能够理解我们的愿景并将其转化为引人入胜的数字体验。技术具有强大的生命力。"';      
            document.getElementById('testimonial-name-2').textContent = 'Bob';      
-           document.getElementById('testimonial-position-2').textContent = '技术架构师';document.getElementById('testimonial-content-3').textContent = '"B.V.C国际联合公司对卓越的承诺和协作方式给我留下了深刻印象。他们花时间真正理解我们的使命，并创建了一个完美反映我们价值观的网站。"';      
-           document.getElementById('testimonial-name-3').textContent = '陈Sally';      
+            document.getElementById('testimonial-position-2').textContent = '技术架构师';
+            document.getElementById('testimonial-content-3').textContent = '"B.V.C国际联合公司对卓越的承诺和协作方式给我留下了深刻印象。他们花时间真正理解我们的使命，并创建了一个完美反映我们价值观的网站。"';
+            document.getElementById('testimonial-name-3').textContent = '陈Sally';      
            document.getElementById('testimonial-position-3').textContent = '创始人';      
            document.getElementById('contact-title').textContent = '联系我们，了解我们如何为您提供帮助';      
            document.getElementById('contact-desc').textContent = '准备好改变您的数字形象了吗？立即联系我们，讨论您的项目，了解我们如何帮助您实现目标。';      
@@ -527,31 +554,84 @@
            document.getElementById('footer-address').textContent = '埼玉県鴻巣市人形二丁目1-67-201号';      
            document.getElementById('footer-copyright').textContent = '© 2025 B.V.C国際合同会社. 全著作権所有.';      
          }      
-         
-         // Save selected language preference      
-         localStorage.setItem('preferred_language', lang);      
+          
+          // Save selected language preference with error handling for browsers that don't support localStorage
+           try {
+             localStorage.setItem('preferred_language', lang);
+             // Also set cookie as backup for WeChat browser
+             document.cookie = `preferred_language=${lang}; path=/; max-age=31536000`;
+           } catch (e) {
+             // Fallback for browsers that don't support localStorage
+             document.cookie = `preferred_language=${lang}; path=/; max-age=31536000`;
+           }      
        }      
        
-       // Initialize with saved language preference or default to Japanese      
+        // Initialize with saved language preference or default to Japanese      
        document.addEventListener('DOMContentLoaded', function() {      
-         const savedLang = localStorage.getItem('preferred_language');      
-         // 确保默认使用日语，无论localStorage中是否有值      
-         if (savedLang && ['zh', 'en', 'ja'].includes(savedLang)) {      
-           switchLanguage(savedLang);      
-           // Update language selector text      
-           if (savedLang === 'zh') {      
-             document.getElementById('current-language').textContent = '中文';      
-           } else if (savedLang === 'en') {      
-             document.getElementById('current-language').textContent = 'English';      
-           } else if (savedLang === 'ja') {      
-             document.getElementById('current-language').textContent = '日本語';      
+         let savedLang;
+         
+         // Try to get language from localStorage first
+          try {
+            // Try localStorage first
+            savedLang = localStorage.getItem('preferred_language');
+            
+            // If not found in localStorage, try cookie
+            if (!savedLang) {
+              const cookies = document.cookie.split(';');
+              for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'preferred_language') {
+                  savedLang = value;
+                  // Update localStorage with cookie value for future use
+                  localStorage.setItem('preferred_language', value);
+                  break;
+                }
+              }
+            }
+          } catch (e) {
+            // Fallback to cookie if localStorage fails
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+              const [name, value] = cookie.trim().split('=');
+              if (name === 'preferred_language') {
+                savedLang = value;
+                break;
+              }
+            }
+          }
+         
+         // Get language selector elements first to ensure they exist
+         const languageToggle = document.getElementById('language-toggle');
+         const currentLanguageEl = document.getElementById('current-language');
+         
+         // Only proceed if elements exist
+         if (languageToggle && currentLanguageEl) {
+           // Ensure default uses Japanese
+           if (savedLang && ['zh', 'en', 'ja'].includes(savedLang)) {      
+             switchLanguage(savedLang);      
+             // Update language selector text      
+             if (savedLang === 'zh') {      
+               currentLanguageEl.textContent = '中文';      
+             } else if (savedLang === 'en') {      
+               currentLanguageEl.textContent = 'English';      
+             } else if (savedLang === 'ja') {      
+               currentLanguageEl.textContent = '日本語';      
+             }      
+            } else {      
+             // Default to Japanese      
+             switchLanguage('ja');      
+             currentLanguageEl.textContent = '日本語';      
+              try {
+                localStorage.setItem('preferred_language', 'ja');
+                document.cookie = 'preferred_language=ja; path=/; max-age=31536000';
+              } catch (e) {
+                document.cookie = 'preferred_language=ja; path=/; max-age=31536000';
+              }
            }      
-         } else {      
-           // 默认使用日语      
-           switchLanguage('ja');      
-           document.getElementById('current-language').textContent = '日本語';      
-           localStorage.setItem('preferred_language', 'ja');      
-         }      
+         } else {
+           // Log error if elements not found
+           console.error('Language selector elements not found');  
+         }
        });      
      </script>      
    </body>      
