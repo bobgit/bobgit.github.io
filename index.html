@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>B.V.C国際合同会社</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" media="print" onload="this.media='all'" />
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <!-- 内联关键CSS以避免渲染阻塞 -->
+    <style>
+      /* 导航栏基础样式 */
+      .navbar { transition: all 0.3s ease; }
+      .language-menu { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+      .language-menu.active { opacity: 1; visibility: visible; }
+      
+      /* 加载状态样式 */
+      .loader { border: 2px solid #f3f3f3; border-top: 2px solid #8b5cf6; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      
+      /* 确保关键内容可见 */
+      #home { min-height: 100vh; display: flex; align-items: center; }
+    </style>
     <script>      
       tailwind.config = {
         theme: {
