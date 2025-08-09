@@ -650,13 +650,13 @@
            document.getElementById('testimonial-name-2').textContent = 'ボブ';      
            document.getElementById('testimonial-position-2').textContent = '技術アーキテクト';      
            document.getElementById('testimonial-content-3').textContent = '"B.V.C国際合同会社の卓越性への取り組みと協力的なアプローチには深く感銘を受けました。彼らは私たちの使命を真に理解するために時間をかけ、私たちの価値観を完璧に反映したウェブサイトを作成しました。"';      
-           document.getElementById('testimonial-name-3').textContent = 'チェン・サリー';      
+           document.getElementById('testimonial-name-3').textContent = 'チェン・サリー';
            document.getElementById('testimonial-position-3').textContent = '創設者';      
            document.getElementById('contact-title').textContent = 'お問い合わせください - 私たちがどのようにご協力できるかをご確認ください。';      
            document.getElementById('contact-desc').textContent = 'デジタルプレゼンスを変革する準備はできていますか？今日すぐお問い合わせいただき、プロジェクトについてご相談いただき、目標達成を支援する方法をご確認ください。';      
            document.getElementById('contact-button-text').textContent = 'メールでお問い合わせ';      
            document.getElementById('footer-company-name').textContent = 'B.V.C国際合同会社';      
-           document.getElementById('footer-about').textContent = 'インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。';      
+           document.getElementById('footer-about').textContent = 'インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。';
            document.getElementById('footer-quick-links').textContent = 'クイックリンク';      
            document.getElementById('footer-contact-us').textContent = 'お問い合わせ';      
            document.getElementById('footer-address').textContent = '埼玉県鴻巣市人形二丁目1-67-201号';      
@@ -699,14 +699,17 @@
           } catch (e) {
             // Fallback to cookie if localStorage fails
             const cookies = document.cookie.split(';');
-            for (let cookie of cookies) {
-              const [name, value] = cookie.trim().split('=');
-              if (name === 'preferred_language') {
-                savedLang = value;
-                break;
+               // 强制默认使用日语，忽略cookie设置
+              savedLang = 'ja';
+              /*
+              for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'preferred_language') {
+                  savedLang = value;
+                  break;
+                }
               }
-            }
-          }
+              */
          
          // Get language selector elements first to ensure they exist
          const languageToggle = document.getElementById('language-toggle');
