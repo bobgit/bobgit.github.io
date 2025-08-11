@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.V.C国際合同会社</title>
     <style>
-        /* 内联所有必要的CSS */
+        /* 基础样式变量 */
         :root {
             --purple-600: #8b5cf6;
             --purple-800: #6d28d9;
@@ -14,8 +14,10 @@
             --gray-100: #f3f4f6;
             --gray-700: #374151;
             --gray-900: #111827;
+            --transition-speed: 0.3s;
         }
         
+        /* 全局重置与基础样式 */
         * {
             margin: 0;
             padding: 0;
@@ -27,6 +29,7 @@
             background-color: white;
             color: var(--gray-900);
             line-height: 1.6;
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
         
         .container {
@@ -69,6 +72,11 @@
             justify-content: center;
             color: white;
             font-weight: bold;
+            transition: transform var(--transition-speed);
+        }
+        
+        .logo:hover .logo-icon {
+            transform: scale(1.1);
         }
         
         .logo-text {
@@ -77,6 +85,7 @@
             color: var(--gray-900);
         }
         
+        /* 桌面导航链接 */
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -86,12 +95,31 @@
             text-decoration: none;
             color: var(--gray-700);
             font-weight: 500;
+            transition: color var(--transition-speed);
+            position: relative;
+            padding: 0.5rem 0;
         }
         
         .nav-links a:hover {
             color: var(--purple-600);
         }
         
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--purple-600);
+            transition: width var(--transition-speed);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 语言选择器 */
         .language-selector {
             display: flex;
             gap: 0.5rem;
@@ -103,6 +131,8 @@
             border: none;
             background-color: var(--gray-100);
             cursor: pointer;
+            transition: all var(--transition-speed);
+            font-weight: 500;
         }
         
         .language-btn.active {
@@ -110,9 +140,29 @@
             color: white;
         }
         
+        .language-btn:hover:not(.active) {
+            background-color: var(--gray-200);
+            transform: translateY(-2px);
+        }
+        
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-700);
+        }
+        
         /* 主要内容样式 */
         section {
             padding: 3rem 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        section:hover {
+            opacity: 0.95;
         }
         
         .hero {
@@ -120,17 +170,32 @@
             color: white;
             text-align: center;
             padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMDIwMjAiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiAwdjRoLTJ2LTRoMnptNi0xMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTEyIDB2NGgtMnYtNGgyem0xMi0xMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptMTIgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTEyIDB2NGgtMnYtNGgyem0xMi0xMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptMTIgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTEyIDB2NGgtMnYtNGgyem0xMi0xMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptMTIgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTEyIDB2NGgtMnYtNGgyem0xMi0xMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptMTIgMHY0aC0ydjRoMnptLTYgMHY0aC0ydjRoMnptLTEyIDB2NGgtMnYtNGgyem0wLTI0aDJ2LTRoLTIwdjR6Ii8+PC9nPjwvZz48L3N2Zz4=') repeat;
+            opacity: 0.2;
         }
         
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            position: relative;
         }
         
         .hero p {
             font-size: 1.25rem;
             max-width: 600px;
             margin: 0 auto 2rem;
+            position: relative;
         }
         
         .btn {
@@ -141,11 +206,16 @@
             font-weight: 600;
             text-decoration: none;
             border-radius: 0.5rem;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
         
         .btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .section-title {
@@ -153,6 +223,19 @@
             text-align: center;
             margin-bottom: 2rem;
             color: var(--gray-900);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--purple-600);
         }
         
         .grid {
@@ -161,17 +244,17 @@
             gap: 2rem;
         }
         
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
         .card {
             background-color: white;
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         
         .card h3 {
@@ -187,6 +270,102 @@
             padding: 3rem 0 1.5rem;
             text-align: center;
         }
+        
+        /* 响应式设计 - 平板 */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* 响应式设计 - 桌面 */
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* 响应式设计 - 移动端 */
+        @media (max-width: 767px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s, opacity 0.3s;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .nav-links a {
+                padding: 0.5rem 1rem;
+                border-radius: 0.25rem;
+            }
+            
+            .nav-links a:hover {
+                background-color: var(--gray-50);
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* 图片样式优化 */
+        .team-member-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.5s;
+        }
+        
+        .team-member-img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
@@ -195,9 +374,10 @@
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
-                    <div class="logo-icon">M</div>
+                    <div class="logo-icon">B</div>
                     <span class="logo-text" data-lang-key="navbar.logo">B.V.C国際合同会社</span>
-                </a>
+                </a>                
+                <button class="menu-toggle" aria-label="菜单">☰</button>
                 
                 <div class="nav-links">
                     <a href="#home" data-lang-key="navbar.home">ホーム</a>
@@ -219,7 +399,7 @@
     <!-- 主要内容 -->
      <!-- 首页 -->
     <main>
-        <section id="home" class="hero">
+        <section id="home" class="hero fade-in">
             <div class="container">
                 <h1 data-lang-key="hero.title">すべての仕事に卓越性を追求</h1>
                 <p data-lang-key="hero.subtitle">インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。</p>
@@ -227,12 +407,12 @@
             </div>
         </section>
         <!-- 关于我们 -->
-        <section id="about" class="container">
+        <section id="about" class="container fade-in delay-1">
             <h2 class="section-title" data-lang-key="about.title">会社概要</h2>
             <div class="grid">
                 <div class="card">
                     <h3 data-lang-key="about.values">核心価値観</h3>
-                    <ul data-lang-key="about.valuesList">
+                    <ul>
                         <li data-lang-key="about.valuesList1">創造性 - 限界を超え、新しい可能性を探ります</li>
                         <li data-lang-key="about.valuesList2">卓越性 - 仕事のあらゆる詳細において完璧を目指します</li>
                         <li data-lang-key="about.valuesList3">協力 - クライアントと緊密に協力し、ビジョンを理解します</li>
@@ -249,65 +429,52 @@
         <section id="services" class="container" style="background-color: var(--gray-50);">
             <h2 class="section-title" data-lang-key="services.title">サービス</h2>
             <div class="grid">
-                <div class="card">
+                <div class="card fade-in delay-1">
                     <h3 data-lang-key="services.webDesign">ウェブデザイン</h3>
                     <p data-lang-key="services.webDesignDesc">現代的でユーザーフレンドリーなウェブサイトを設計します。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in delay-2">
                     <h3 data-lang-key="services.dev">アプリ開発</h3>
                     <p data-lang-key="services.devDesc">対応するモバイルアプリケーションを開発します。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in delay-3">
                     <h3 data-lang-key="services.branding">電子商取引</h3>
                     <p data-lang-key="services.brandingDesc">商品販売のオンラインストアを構築し、一体化した決済システムを提供します。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in delay-1">
                     <h3 data-lang-key="services.development0">留学</h3>
                     <p data-lang-key="services.developmentDesc0">専門的な留学コンサルティングと語学研修プログラムで、学生の国際的な視野を広げます。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in delay-2">
                     <h3 data-lang-key="services.development1">労働者派遣</h3>
                     <p data-lang-key="services.developmentDesc1">企業の柔軟な雇用ニーズを満たす信頼できる人材派遣サービスを提供します。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in delay-3">
                     <h3 data-lang-key="services.development2">翻訳</h3>
                     <p data-lang-key="services.developmentDesc2">多言語の専門翻訳サービスにより、異文化コミュニケーションの正確性を確保します。</p>
                 </div>
             </div>
         </section>
-        <!-- 作品集 -->       
-        <section id="portfolio" class="container" style="background-color: var(--gray-50);">
+        <!-- 团队成员 -->       
+        <section id="portfolio" class="container">
             <h2 class="section-title" data-lang-key="portfolio.title">チームメンバー紹介</h2>
             <div class="grid">
-                <div class="card">
-                    <div>
-                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Sally" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                    </div>
+                <div class="card fade-in delay-1">
+                    <img src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Sally" class="team-member-img" />
                     <h3 data-lang-key="portfolio.webDesign1">Sally</h3>
                     <p data-lang-key="portfolio.webDesignDesc1">創設者</p>
                     <p data-lang-key="portfolio.member1">B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。</p>
                 </div>
-                <div class="card">
-                    <div>
-                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20man%20headshot%20corporate%20portrait&sign=710e534b9ba61b687017e4cbdc32e01f" alt="Bob" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                    </div>
+                <div class="card fade-in delay-2">
+                    <img src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20man%20headshot%20corporate%20portrait&sign=710e534b9ba61b687017e4cbdc32e01f" alt="Bob" class="team-member-img" />
                     <h3 data-lang-key="portfolio.webDesign2">Bob</h3>
                     <p data-lang-key="portfolio.webDesignDesc2">技術アーキテクト</p>
                     <p data-lang-key="portfolio.member2">システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。</p>
                 </div>
-                <div class="card">
-                    <div>
-                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Seagirl" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                    </div>
-                    <h3 data-lang-key="portfolio.webDesign3">Seagirl</h3>
-                    <p data-lang-key="portfolio.webDesignDesc3">デザイナー</p>
-                    <p data-lang-key="portfolio.member3">資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。</p>
-                </div>
-            </div>
-        </section>
+           </section>
 
         <!-- 联系我们 -->
-        <section id="contact" class="container">
+        <section id="contact" class="container fade-in delay-1">
             <h2 class="section-title" data-lang-key="contact.title">お問い合わせ</h2>
             <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
                 <p data-lang-key="contact.desc">デジタルプレゼンスを変革する準備はできていますか？今日すぐお問い合わせください。</p>
@@ -338,7 +505,6 @@
                 'hero.cta': '詳細を見る',
                 'about.title': '会社概要',
                 'about.values': '核心価値観',
-                'about.valuesList': '',
                 'about.valuesList1': '創造性 - 限界を超え、新しい可能性を探ります',
                 'about.valuesList2': '卓越性 - 仕事のあらゆる詳細において完璧を目指します',
                 'about.valuesList3': '協力 - クライアントと緊密に協力し、ビジョンを理解します',
@@ -361,13 +527,9 @@
                 'portfolio.title': 'チームメンバー紹介',
                 'portfolio.webDesign1': 'Sally',
                 'portfolio.webDesignDesc1': '創設者',
-                'portfolio.member1': 'UI/B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。',
+                'portfolio.member1': 'B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。',
                 'portfolio.webDesign2': 'Bob',
                 'portfolio.webDesignDesc2': '技術アーキテクト',
-                'portfolio.member2': 'システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。',
-                'portfolio.webDesign3': 'Seagirl',
-                'portfolio.webDesignDesc3': 'デザイナー',
-                'portfolio.member3': '資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。',
                 'contact.title': 'お問い合わせ',
                 'contact.desc': 'デジタルプレゼンスを変革する準備はできていますか？今日すぐお問い合わせください。',
                 'contact.cta': 'メールで問い合わせ',
@@ -385,7 +547,6 @@
                 'hero.cta': '了解更多',
                 'about.title': '公司概要',
                 'about.values': '核心价值观',
-                'about.valuesList': '',
                 'about.valuesList1': '创造力-超越极限，探索新的可能性',
                 'about.valuesList2': '卓越-在工作的每一个细节上力求完美',
                 'about.valuesList3': '合作-与客户紧密合作，了解愿景',
@@ -412,9 +573,6 @@
                 'portfolio.webDesign2': 'Bob',
                 'portfolio.webDesignDesc2': '技术架构师',
                 'portfolio.member2': '系统架构设计专家，在云基础设施和大规模系统优化方面拥有15年以上经验。',
-                'portfolio.webDesign3': 'Seagirl',
-                'portfolio.webDesignDesc3': '设计师',
-                'portfolio.member3': '资深设计师，专注于用户界面设计和用户体验优化，创造直观且富有吸引力的数字产品。',
                 'contact.title': '联系我们',
                 'contact.desc': '准备好改变您的数字形象了吗？立即联系我们。',
                 'contact.cta': '邮件咨询',
@@ -432,7 +590,6 @@
                 'hero.cta': 'Learn More',
                 'about.title': 'About Us',
                 'about.values': 'Core Values',
-                'about.valuesList': '',
                 'about.valuesList1': 'Creativity-Go beyond the limit and explore new possibilities',
                 'about.valuesList2': 'Excellence-strive for perfection in every detail of the work',
                 'about.valuesList3': 'Cooperation-Work closely with customers to understand the vision.',
@@ -458,10 +615,6 @@
                 'portfolio.member1': 'Founder of B.V.C International United Company. With over 15 years of international business experience, leading the company strategic vision.',
                 'portfolio.webDesign2': 'Bob',
                 'portfolio.webDesignDesc2': 'Technical Architect',
-                'portfolio.member2': 'Expert in system architecture design with over 10 years of experience in cloud infrastructure and large-scale system optimization.',
-                'portfolio.webDesign3': 'Seagirl',
-                'portfolio.webDesignDesc3': 'Designer',
-                'portfolio.member3': 'Senior designer specializing in user interface design and user experience optimization, creating intuitive and attractive digital products.',
                 'contact.title': 'Contact Us',
                 'contact.desc': 'Ready to transform your digital presence? Contact us today.',
                 'contact.cta': 'Email Us',
@@ -471,10 +624,28 @@
 
         // 语言切换功能
         document.addEventListener('DOMContentLoaded', function() {
-            // 获取所有语言按钮
+            // 移动端菜单切换
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+            });
+            
+            // 点击导航链接后关闭菜单（移动端）
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 767) {
+                        navLinks.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                    }
+                });
+            });
+            
+            // 语言切换按钮
             const langButtons = document.querySelectorAll('.language-btn');
             
-            // 为每个按钮添加点击事件
             langButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const lang = this.getAttribute('data-lang');
@@ -488,8 +659,35 @@
                 });
             });
             
-            // 默认显示日语
+            // 初始显示日语
             updateLanguage('ja');
+            
+            // 监听窗口大小变化，确保在大屏幕上菜单正常显示
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 767) {
+                    navLinks.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            });
+            
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                fadeInObserver.observe(element);
+            });
         });
         
         // 更新页面语言
@@ -506,6 +704,9 @@
             
             // 更新HTML语言属性
             document.documentElement.lang = lang;
+            
+            // 更新页面标题
+            document.title = translations[lang]['navbar.logo'];
         }
     </script>
 </body>
