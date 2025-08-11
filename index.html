@@ -1,747 +1,512 @@
-﻿<!doctype html>
+﻿
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.V.C国際合同会社</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    
-    <!-- 引入Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
-    
-    <!-- Tailwind配置 -->
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              purple: {
-                100: '#f3e8ff',
-                600: '#8b5cf6',
-                700: '#7c3aed',
-                800: '#6d28d9',
-                900: '#5b21b6',  
-              },
-              gray: {
-                50: '#f9fafb',
-                100: '#f3f4f6',
-                700: '#374151',
-                800: '#1f2937',
-                900: '#111827',
-              }
-            },
-            fontFamily: {
-              inter: ['Inter', 'sans-serif'],
-            },
-          },
-        }
-      }
-    </script>
-    
-    <!-- 自定义工具类 -->
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .content-auto {
-          content-visibility: auto;
-        }
-        .text-shadow {
-          text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .transition-transform {
-          transition-property: transform;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-          transition-duration: 300ms;
-        }
-        .hover-scale {
-          transition: transform 0.3s ease;  
-        }
-        .hover-scale:hover {
-          transform: scale(1.02);
-        }
-      }
-    </style>
-    
-    <!-- 全局样式 -->
     <style>
-      /* 导入Google字体 */
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-      
-      /* 基础样式 */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body {
-        font-family: 'Inter', sans-serif;
-        overflow-x: hidden;
-        animation: pageLoad 0.5s ease-out;
-      }
-      
-      @keyframes pageLoad {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      
-      /* 导航栏滚动效果 */
-      .navbar-scrolled {
-        background-color: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      }
-      
-      /* 平滑滚动 */
-      html {
-        scroll-behavior: smooth;
-      }
-      
-      /* 自定义滚动条 */
-      ::-webkit-scrollbar {
-        width: 8px !important;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1 !important;
-      }      
-      ::-webkit-scrollbar-thumb {
-        background: #8a5cf7 !important;  
-        border-radius: 4px !important;  
-      }
-      ::-webkit-scrollbar-thumb:hover {      
-        background: #6d38e0 !important;
-      }      
+        /* 内联所有必要的CSS */
+        :root {
+            --purple-600: #8b5cf6;
+            --purple-800: #6d28d9;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: white;
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background-color: var(--purple-800);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--gray-900);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--purple-600);
+        }
+        
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .language-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            border: none;
+            background-color: var(--gray-100);
+            cursor: pointer;
+        }
+        
+        .language-btn.active {
+            background-color: var(--purple-600);
+            color: white;
+        }
+        
+        /* 主要内容样式 */
+        section {
+            padding: 3rem 0;
+        }
+        
+        .hero {
+            background: linear-gradient(to bottom right, var(--purple-800), var(--purple-600));
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: var(--purple-800);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray-900);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--gray-900);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            text-align: center;
+        }
     </style>
-  </head>
-  
-  <body class="font-inter bg-white text-gray-900">
+</head>
+<body>
     <!-- 导航栏 -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="flex items-center justify-between">
-          <!-- Logo -->
-          <a href="#" class="flex items-center space-x-2">
-            <div class="w-10 h-10 bg-purple-800 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-xl">B</span>
-            </div>
-            <span class="text-xl font-bold tracking-tight text-white" id="navbar-logo">B.V.C国際合同会社</span>
-          </a>
-          
-          <!-- 桌面导航 -->
-          <div class="hidden md:flex items-center space-x-4">
-            <nav class="flex items-center space-x-6">
-              <a href="#home" class="text-sm font-medium text-white/90 hover:text-white transition-colors">首页</a>
-              <a href="#about" class="text-sm font-medium text-white/90 hover:text-white transition-colors">关于我们</a>
-              <a href="#services" class="text-sm font-medium text-white/90 hover:text-white transition-colors">服务</a>
-              <a href="#portfolio" class="text-sm font-medium text-white/90 hover:text-white transition-colors">作品集</a>
-              <a href="#contact" class="text-sm font-medium text-white/90 hover:text-white transition-colors">联系我们</a>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <div class="logo-icon">M</div>
+                    <span class="logo-text" data-lang-key="navbar.logo">B.V.C国際合同会社</span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="#home" data-lang-key="navbar.home">ホーム</a>
+                    <a href="#about" data-lang-key="navbar.about">会社概要</a>
+                    <a href="#services" data-lang-key="navbar.services">サービス</a>
+                    <a href="#portfolio" data-lang-key="navbar.portfolio">チームメンバー</a>
+                    <a href="#contact" data-lang-key="navbar.contact">お問い合わせ</a>
+                </div>
+                
+                <div class="language-selector">
+                    <button class="language-btn active" data-lang="ja">日本語</button>
+                    <button class="language-btn" data-lang="zh">中文</button>
+                    <button class="language-btn" data-lang="en">English</button>
+                </div>
             </nav>
-            
-            <!-- 语言按钮 - 桌面 -->
-            <div class="flex space-x-2 ml-4">
-              <button id="lang-zh" class="px-3 py-1 rounded text-sm font-medium bg-white/10 text-white/90 hover:bg-white/20 transition-colors">中文</button>
-              <button id="lang-en" class="px-3 py-1 rounded text-sm font-medium bg-white/10 text-white/90 hover:bg-white/20 transition-colors">English</button>
-              <button id="lang-ja" class="px-3 py-1 rounded text-sm font-medium bg-purple-600 text-white transition-colors">日本語</button>
-            </div>
-          </div>
-          
-          <!-- 移动端菜单按钮 -->
-          <button id="mobile-menu-button" class="md:hidden text-white text-xl">
-            <i class="fa-solid fa-bars"></i>
-          </button>
         </div>
-      </div>
-      
-      <!-- 移动端导航菜单 -->
-      <div id="mobile-menu" class="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 py-4 px-4 hidden">
-        <nav class="flex flex-col space-y-4">
-          <a href="#home" class="text-sm font-medium text-gray-700 hover:text-purple-600 py-2 mobile-link">首页</a>
-          <a href="#about" class="text-sm font-medium text-gray-700 hover:text-purple-600 py-2 mobile-link">关于我们</a>
-          <a href="#services" class="text-sm font-medium text-gray-700 hover:text-purple-600 py-2 mobile-link">服务</a>
-          <a href="#portfolio" class="text-sm font-medium text-gray-700 hover:text-purple-600 py-2 mobile-link">作品集</a>
-          <a href="#contact" class="text-sm font-medium text-gray-700 hover:text-purple-600 py-2 mobile-link">联系我们</a>
-          
-          <!-- 语言按钮 - 移动端 -->
-          <div class="border-t border-gray-100 my-2 pt-4">
-            <div class="flex justify-between space-x-3">
-              <button id="mobile-lang-zh" class="flex-1 px-4 py-2 rounded text-sm font-medium bg-gray-100 text-gray-700">中文</button>
-              <button id="mobile-lang-en" class="flex-1 px-4 py-2 rounded text-sm font-medium bg-gray-100 text-gray-700">English</button>
-              <button id="mobile-lang-ja" class="flex-1 px-4 py-2 rounded text-sm font-medium bg-purple-600 text-white">日本語</button>
-            </div>
-          </div>
-        </nav>
-      </div>
     </header>
-    
-    <!-- 英雄区域 -->
-    <section id="home" class="pt-28 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-purple-900 to-purple-800 text-white min-h-screen flex items-center">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <!-- 英雄内容 -->
-          <div class="space-y-8">
-            <div class="space-y-4">
-              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" id="hero-title">卓越を追求し、品質を築く</h1>
-              <p class="text-lg md:text-xl text-purple-100 max-w-lg" id="hero-subtitle">インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。</p>
+
+    <!-- 主要内容 -->
+     <!-- 首页 -->
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1 data-lang-key="hero.title">すべての仕事に卓越性を追求</h1>
+                <p data-lang-key="hero.subtitle">インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。</p>
+                <a href="#contact" class="btn" data-lang-key="hero.cta">詳細を見る</a>
             </div>
-            
-            <a href="#contact" class="inline-block bg-white text-purple-900 font-medium px-8 py-3 rounded-lg transition-all hover:shadow-lg">詳細を見る</a>
-          </div>
-          
-          <!-- 英雄图片 -->
-          <div class="relative">
-            <div class="relative rounded-xl overflow-hidden shadow-2xl transform md:rotate-2 transition-transform hover:rotate-0 duration-500">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="B.V.C国際合同会社のチームコラボレーション" class="w-full h-auto object-cover" />
+        </section>
+        <!-- 关于我们 -->
+        <section id="about" class="container">
+            <h2 class="section-title" data-lang-key="about.title">会社概要</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-lang-key="about.values">核心価値観</h3>
+                    <ul data-lang-key="about.valuesList">
+                        <li data-lang-key="about.valuesList1">創造性 - 限界を超え、新しい可能性を探ります</li>
+                        <li data-lang-key="about.valuesList2">卓越性 - 仕事のあらゆる詳細において完璧を目指します</li>
+                        <li data-lang-key="about.valuesList3">協力 - クライアントと緊密に協力し、ビジョンを理解します</li>
+                        <li data-lang-key="about.valuesList4">イノベーション - 新しいテクノロジーと方法を取り入れます</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="about.mission">私たちの使命</h3>
+                    <p data-lang-key="about.missionText">デザインへの深い情熱と、クライアントがデジタル領域で成功するのを支援するという約束から生まれています。デザインが企業や生活を変革する力を持っていると信じています。</p>
+                </div>
             </div>
-            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-600 rounded-lg -z-10"></div>
-            <div class="absolute -top-6 -right-6 w-40 h-40 bg-purple-700 rounded-lg -z-10"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 关于我们 -->
-    <section id="about" class="py-20 bg-white">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="order-2 lg:order-1">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6" id="about-title">会社概要</h2>
-            <p class="text-gray-700 mb-6" id="about-desc">B.V.C国際合同会社は、クリエイティビティとテクノロジーを融合したデジタルソリューションプロバイダーです。私たちはクライアントのビジョンを現実に変えることに専念しています。</p>
-            
-            <div class="grid grid-cols-2 gap-6 mb-8">
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">創立</h3>
-                <p class="text-gray-600">2010年</p>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">従業員</h3>
-                <p class="text-gray-600">5名</p>
-              </div>
+        </section>
+        <!-- 服务 -->
+        <section id="services" class="container" style="background-color: var(--gray-50);">
+            <h2 class="section-title" data-lang-key="services.title">サービス</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-lang-key="services.webDesign">ウェブデザイン</h3>
+                    <p data-lang-key="services.webDesignDesc">現代的でユーザーフレンドリーなウェブサイトを設計します。</p>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="services.dev">アプリ開発</h3>
+                    <p data-lang-key="services.devDesc">対応するモバイルアプリケーションを開発します。</p>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="services.branding">電子商取引</h3>
+                    <p data-lang-key="services.brandingDesc">商品販売のオンラインストアを構築し、一体化した決済システムを提供します。</p>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="services.development0">留学</h3>
+                    <p data-lang-key="services.developmentDesc0">専門的な留学コンサルティングと語学研修プログラムで、学生の国際的な視野を広げます。</p>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="services.development1">労働者派遣</h3>
+                    <p data-lang-key="services.developmentDesc1">企業の柔軟な雇用ニーズを満たす信頼できる人材派遣サービスを提供します。</p>
+                </div>
+                <div class="card">
+                    <h3 data-lang-key="services.development2">翻訳</h3>
+                    <p data-lang-key="services.developmentDesc2">多言語の専門翻訳サービスにより、異文化コミュニケーションの正確性を確保します。</p>
+                </div>
             </div>
-            
-            <a href="#contact" class="inline-block bg-purple-600 text-white font-medium px-6 py-3 rounded-lg transition-all hover:bg-purple-700 hover:shadow-lg">
-              詳細を見る <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
-            </a>
-          </div>
-          
-          <div class="order-1 lg:order-2 relative">
-            <div class="relative rounded-xl overflow-hidden shadow-xl transform hover:scale-[1.01] transition-transform duration-500">
-              <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f" alt="B.V.C国際合同会社のチームコラボレーション" class="w-full h-auto" />
+        </section>
+        <!-- 作品集 -->       
+        <section id="portfolio" class="container" style="background-color: var(--gray-50);">
+            <h2 class="section-title" data-lang-key="portfolio.title">チームメンバー紹介</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Sally" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                    </div>
+                    <h3 data-lang-key="portfolio.webDesign1">Sally</h3>
+                    <p data-lang-key="portfolio.webDesignDesc1">創設者</p>
+                    <p data-lang-key="portfolio.member1">B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。</p>
+                </div>
+                <div class="card">
+                    <div>
+                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20man%20headshot%20corporate%20portrait&sign=710e534b9ba61b687017e4cbdc32e01f" alt="Bob" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                    </div>
+                    <h3 data-lang-key="portfolio.webDesign2">Bob</h3>
+                    <p data-lang-key="portfolio.webDesignDesc2">技術アーキテクト</p>
+                    <p data-lang-key="portfolio.member2">システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。</p>
+                </div>
+                <div class="card">
+                    <div>
+                        <img style="height: 250px;" src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Seagirl" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                    </div>
+                    <h3 data-lang-key="portfolio.webDesign3">Seagirl</h3>
+                    <p data-lang-key="portfolio.webDesignDesc3">デザイナー</p>
+                    <p data-lang-key="portfolio.member3">資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。</p>
+                </div>
             </div>
-            <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-purple-100 rounded-lg -z-10"></div>
-            <div class="absolute -top-6 -left-6 w-24 h-24 bg-purple-600 rounded-lg -z-10"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 服务 -->
-    <section id="services" class="py-20 bg-gray-50">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" id="services-title">サービス</h2>
-          <p class="text-gray-600 text-lg" id="services-desc">私たちは幅広いサービスを提供し、あらゆるビジネスニーズを満たします</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- 服务卡片 1 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-globe text-2xl"></i>
+        </section>
+
+        <!-- 联系我们 -->
+        <section id="contact" class="container">
+            <h2 class="section-title" data-lang-key="contact.title">お問い合わせ</h2>
+            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <p data-lang-key="contact.desc">デジタルプレゼンスを変革する準備はできていますか？今日すぐお問い合わせください。</p>
+                <a href="mailto:goodsallyok@126.com" class="btn" style="margin-top: 1rem;" data-lang-key="contact.cta">メールで問い合わせ</a>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-1-title">ウェブサイトデザイン</h3>
-            <p class="text-gray-600" id="service-1-desc">レスポンシブデザインのウェブサイトを制作し、すべてのデバイスで最適な表示を実現します。</p>
-          </div>
-          
-          <!-- 服务卡片 2 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-mobile-alt text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-2-title">アプリ開発</h3>
-            <p class="text-gray-600" id="service-2-desc">iOSとAndroidに対応するモバイルアプリケーションを開発します。</p>
-          </div>
-          
-          <!-- 服务卡片 3 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-shopping-cart text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-3-title">電子商取引</h3>
-            <p class="text-gray-600" id="service-3-desc">商品販売のオンラインストアを構築し、一体化した決済システムを提供します。</p>
-          </div>
-          
-          <!-- 服务卡片 4 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-graduation-cap text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-4-title">留学</h3>
-            <p class="text-gray-600" id="service-4-desc">専門的な留学コンサルティングと語学研修プログラムで、学生の国際的な視野を広げます。</p>
-          </div>
-          
-          <!-- 服务卡片 5 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-users text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-5-title">労働者派遣</h3>
-            <p class="text-gray-600" id="service-5-desc">企業の柔軟な雇用ニーズを満たす信頼できる人材派遣サービスを提供します。</p>
-          </div>
-          
-          <!-- 服务卡片 6 -->
-          <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-6">
-              <i class="fa-solid fa-language text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3" id="service-6-title">翻訳</h3>
-            <p class="text-gray-600" id="service-6-desc">多言語の専門翻訳サービスにより、異文化コミュニケーションの正確性を確保します。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 作品集 -->
-    <section id="portfolio" class="py-20 bg-white">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" id="portfolio-title">チームメンバー紹介</h2>
-          <p class="text-gray-600 text-lg" id="portfolio-subtitle">B.V.C国際合同会社の主なメンバーをご紹介します</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- 团队成员 1 -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="h-64 overflow-hidden">
-              <img src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Sally" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-1" id="member-1-name">Sally</h3>
-              <p class="text-purple-600 mb-3" id="member-1-position">創設者</p>
-              <p class="text-gray-600 mb-4" id="member-1-desc">B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。</p>
-              <a href="#" class="text-purple-600 font-medium hover:text-purple-700 transition-colors" id="member-1-link">作品を見る <i class="fa-solid fa-arrow-right ml-1 text-sm"></i></a>
-            </div>
-          </div>
-          
-          <!-- 团队成员 2 -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="h-64 overflow-hidden">
-              <img src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20man%20headshot%20corporate%20portrait&sign=710e534b9ba61b687017e4cbdc32e01f" alt="Bob" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-1" id="member-2-name">Bob</h3>
-              <p class="text-purple-600 mb-3" id="member-2-position">技術アーキテクト</p>
-              <p class="text-gray-600 mb-4" id="member-2-desc">システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。</p>
-              <a href="#" class="text-purple-600 font-medium hover:text-purple-700 transition-colors" id="member-2-link">作品を見る <i class="fa-solid fa-arrow-right ml-1 text-sm"></i></a>
-            </div>
-          </div>
-          
-          <!-- 团队成员 3 -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="h-64 overflow-hidden">
-              <img src="https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=professional%20woman%20headshot%20corporate%20portrait&sign=3b05138b00b5ea817d6fcbed6f9860a0" alt="Seagirl" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-1" id="member-3-name">Seagirl</h3>
-              <p class="text-purple-600 mb-3" id="member-3-position">デザイナー</p>
-              <p class="text-gray-600 mb-4" id="member-3-desc">資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。</p>
-              <a href="#" class="text-purple-600 font-medium hover:text-purple-700 transition-colors" id="member-3-link">作品を見る <i class="fa-solid fa-arrow-right ml-1 text-sm"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 联系我们 -->
-    <section id="contact" class="py-20 bg-gradient-to-br from-purple-900 to-purple-800 text-white">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="max-w-3xl mx-auto text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4" id="contact-title">お問い合わせ</h2>
-          <p class="text-purple-100 text-lg max-w-2xl mx-auto mb-10" id="contact-desc">私たちがどのようにお手伝いできるかをご確認ください。あなたのプロジェクトについて話し合い、目標達成を支援させていただきます。</p>
-          
-<a href="mailto:goodsallyok@126.com" class="inline-block bg-white text-purple-900 font-medium px-8 py-4 rounded-lg text-lg transition-all hover:shadow-lg" id="contact-cta">メールでお問い合わせ</a>
-          
-          <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white mb-4">
-                <i class="fa-solid fa-map-marker-alt"></i>
-              </div>
-              <h3 class="text-lg font-semibold mb-2">住所</h3>
-              <p class="text-purple-100" id="contact-address">埼玉県鴻巣市人形二丁目1-67-201号</p>
-            </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white mb-4">
-                <i class="fa-solid fa-phone"></i>
-              </div>
-              <h3 class="text-lg font-semibold mb-2">電話</h3>
-              <p class="text-purple-100">+1 (555) 123-4567</p>
-            </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white mb-4">
-                <i class="fa-solid fa-envelope"></i>
-              </div>
-              <h3 class="text-lg font-semibold mb-2">メール</h3>
-<p class="text-purple-100">goodsallyok@126.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
+        </section>
+    </main>
+
     <!-- 页脚 -->
-    <footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
-      <div class="container mx-auto px-4 md:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <!-- 公司信息 -->
-          <div>
-            <div class="flex items-center space-x-2 mb-6">
-              <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>  
-              </div>
-              <span class="text-xl font-bold text-white" id="footer-company-name">B.V.C国際合同会社</span>
-            </div>
-            <p class="mb-6" id="footer-about">インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。</p>
-            <div class="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                <i className="fa-brands fa-twitter"></i>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-purple-600 hover:text-white transition-colors">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
-            </div>
-          </div>
-          
-          <!-- 快速链接 -->
-          <div>
-            <h3 class="text-white font-bold text-lg mb-6" id="footer-quick-links">クイックリンク</h3>
-            <ul className="space-y-3">
-              <li><a href="#home" class="hover:text-purple-400 transition-colors" id="footer-link-home">ホーム</a></li>
-              <li><a href="#about" class="hover:text-purple-400 transition-colors" id="footer-link-about">会社概要</a></li>
-              <li><a href="#services" class="hover:text-purple-400 transition-colors" id="footer-link-services">サービス</a></li>
-              <li><a href="#portfolio" class="hover:text-purple-400 transition-colors" id="footer-link-portfolio">ポートフォリオ</a></li>
-              <li><a href="#contact" class="hover:text-purple-400 transition-colors" id="footer-link-contact">お問い合わせ</a></li>
-            </ul>
-          </div>
-          
-          <!-- 我们的服务 -->
-          <div>
-            <h3 class="text-white font-bold text-lg mb-6" id="footer-our-services">サービス</h3>
-            <ul className="space-y-3">
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-1">ウェブサイトデザイン</a></li>
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-2">アプリ開発</a></li>
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-3">電子商取引</a></li>
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-4">留学</a></li>
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-5">労働者派遣</a></li>
-              <li><a href="#" class="hover:text-purple-400 transition-colors" id="footer-service-6">翻訳</a></li>
-            </ul>
-          </div>
-          
-          <!-- 联系我们 -->
-          <div>
-            <h3 class="text-white font-bold text-lg mb-6" id="footer-contact-us">お問い合わせ</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start space-x-3">
-                <i className="fa-solid fa-map-marker-alt mt-1"></i>
-                <span id="footer-address">埼玉県鴻巣市人形二丁目1-67-201号</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <i className="fa-solid fa-phone"></i>
-                <span>+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <i className="fa-solid fa-envelope"></i>
-          <span>goodsallyok@126.com</span>
-              </li>
-            </ul>
-          </div>
+    <footer>
+        <div class="container">
+            <p data-lang-key="footer.copyright">© 2025 B.V.C国際合同会社. 全著作権所有. </p>
         </div>
-        
-        <div className="pt-8 border-t border-gray-800 text-center text-sm">
-          <p id="footer-copyright">© 2025 B.V.C国際合同会社. 全著作権所有.</p>
-        </div>
-      </div>
     </footer>
-    
-    <!-- 页面脚本 -->
+
     <script>
-      // 导航栏滚动效果
-      window.addEventListener('scroll', function() {
-        const navbar = document.getElementById('navbar');
-        const navbarLogo = document.getElementById('navbar-logo');
-        const navLinks = document.querySelectorAll('#navbar nav a');
-        
-        if (window.scrollY > 10) {
-          navbar.classList.add('bg-white', 'shadow-sm', 'py-3');
-          navbar.classList.remove('bg-transparent', 'py-5');
-          navbarLogo.classList.remove('text-white');
-          navbarLogo.classList.add('text-gray-900');
-          
-          navLinks.forEach(link => {
-            link.classList.remove('text-white/90', 'hover:text-white');
-            link.classList.add('text-gray-700', 'hover:text-purple-600');
-          });
-        } else {
-          navbar.classList.remove('bg-white', 'shadow-sm', 'py-3');
-          navbar.classList.add('bg-transparent', 'py-5');
-          navbarLogo.classList.add('text-white');
-          navbarLogo.classList.remove('text-gray-900');
-          
-          navLinks.forEach(link => {
-            link.classList.add('text-white/90', 'hover:text-white');
-            link.classList.remove('text-gray-700', 'hover:text-purple-600');
-          });
-        }
-      });
-      
-      // 移动端菜单切换
-      document.getElementById('mobile-menu-button').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden');
-      });
-      
-      // 移动端链接点击后关闭菜单
-      document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', function() {
-          document.getElementById('mobile-menu').classList.add('hidden');
+        // 多语言翻译数据
+        const translations = {
+            ja: {
+                'navbar.logo': 'B.V.C国際合同会社',
+                'navbar.home': 'ホーム',
+                'navbar.about': '会社概要',
+                'navbar.services': 'サービス',
+                'navbar.portfolio': 'チームメンバー',
+                'navbar.contact': 'お問い合わせ',
+                'hero.title': 'すべての仕事に卓越性を追求',
+                'hero.subtitle': 'インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。',
+                'hero.cta': '詳細を見る',
+                'about.title': '会社概要',
+                'about.values': '核心価値観',
+                'about.valuesList': '',
+                'about.valuesList1': '創造性 - 限界を超え、新しい可能性を探ります',
+                'about.valuesList2': '卓越性 - 仕事のあらゆる詳細において完璧を目指します',
+                'about.valuesList3': '協力 - クライアントと緊密に協力し、ビジョンを理解します',
+                'about.valuesList4': 'イノベーション - 新しいテクノロジーと方法を取り入れます',
+                'about.mission': '私たちの使命',
+                'about.missionText': 'デザインへの深い情熱と、クライアントがデジタル領域で成功するのを支援するという約束から生まれています。デザインが企業や生活を変革する力を持っていると信じています。',
+                'services.title': 'サービス',
+                'services.webDesign': 'ウェブデザイン',
+                'services.webDesignDesc': '現代的でユーザーフレンドリーなウェブサイトを設計します。',
+                'services.dev': 'アプリ開発',
+                'services.devDesc': '対応するモバイルアプリケーションを開発します。',
+                'services.branding': '電子商取引',
+                'services.brandingDesc': '商品販売のオンラインストアを構築し、一体化した決済システムを提供します。',
+                'services.development0': '留学',
+                'services.developmentDesc0': '専門的な留学コンサルティングと語学研修プログラムで、学生の国際的な視野を広げます。',
+                'services.development1': '労働者派遣',
+                'services.developmentDesc1': '企業の柔軟な雇用ニーズを満たす信頼できる人材派遣サービスを提供します。',
+                'services.development2': '翻訳',
+                'services.developmentDesc2': '多言語の専門翻訳サービスにより、異文化コミュニケーションの正確性を確保します。',
+                'portfolio.title': 'チームメンバー紹介',
+                'portfolio.webDesign1': 'Sally',
+                'portfolio.webDesignDesc1': '創設者',
+                'portfolio.member1': 'UI/B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。',
+                'portfolio.webDesign2': 'Bob',
+                'portfolio.webDesignDesc2': '技術アーキテクト',
+                'portfolio.member2': 'システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。',
+                'portfolio.webDesign3': 'Seagirl',
+                'portfolio.webDesignDesc3': 'デザイナー',
+                'portfolio.member3': '資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。',
+                'contact.title': 'お問い合わせ',
+                'contact.desc': 'デジタルプレゼンスを変革する準備はできていますか？今日すぐお問い合わせください。',
+                'contact.cta': 'メールで問い合わせ',
+                'footer.copyright': '© 2025 B.V.C国際合同会社. 全著作権所有.'
+            },
+            zh: {
+                'navbar.logo': 'B.V.C国际联合公司',
+                'navbar.home': '首页',
+                'navbar.about': '关于我们',
+                'navbar.services': '服务',
+                'navbar.portfolio': '团队成员',
+                'navbar.contact': '联系我们',
+                'hero.title': '精益求精，铸就卓越',
+                'hero.subtitle': '打造激发灵感的数字体验。我们融合创意与技术，构建富有意义的数字产品。',
+                'hero.cta': '了解更多',
+                'about.title': '公司概要',
+                'about.values': '核心价值观',
+                'about.valuesList': '',
+                'about.valuesList1': '创造力-超越极限，探索新的可能性',
+                'about.valuesList2': '卓越-在工作的每一个细节上力求完美',
+                'about.valuesList3': '合作-与客户紧密合作，了解愿景',
+                'about.valuesList4': '创新-引入新的技术和方法',
+                'about.mission': '我们的使命',
+                'about.missionText': '源于对设计的深厚热情，以及帮助客户在数字领域取得成功的承诺。我们相信设计拥有改变企业和生活的力量。',
+                'services.title': '服务',
+                'services.webDesign': '网页设计',
+                'services.webDesignDesc': '设计现代且用户友好的网站。',
+                'services.dev': '应用开发',
+                'services.devDesc': '开发应用程序。',
+                'services.branding': '电子商务',
+                'services.brandingDesc': '构建商品销售在线商店，并提供一体化的支付系统。',
+                'services.development0': '留学游学',
+                'services.developmentDesc0': '专业的留学咨询和语言培训项目，拓展学生的国际视野。',
+                'services.development1': '劳务派遣',
+                'services.developmentDesc1': '提供可靠的人才派遣服务，满足企业灵活的用工需求。',
+                'services.development2': '翻译',
+                'services.developmentDesc2': '多语言专业翻译服务，确保跨文化沟通的准确性。',
+                'portfolio.title': '团队成员介绍',
+                'portfolio.webDesign1': 'Sally',
+                'portfolio.webDesignDesc1': '创始人',
+                'portfolio.member1': 'B.V.C国际联合公司的创始人，拥有15年以上国际业务经验，引领公司战略愿景。',
+                'portfolio.webDesign2': 'Bob',
+                'portfolio.webDesignDesc2': '技术架构师',
+                'portfolio.member2': '系统架构设计专家，在云基础设施和大规模系统优化方面拥有15年以上经验。',
+                'portfolio.webDesign3': 'Seagirl',
+                'portfolio.webDesignDesc3': '设计师',
+                'portfolio.member3': '资深设计师，专注于用户界面设计和用户体验优化，创造直观且富有吸引力的数字产品。',
+                'contact.title': '联系我们',
+                'contact.desc': '准备好改变您的数字形象了吗？立即联系我们。',
+                'contact.cta': '邮件咨询',
+                'footer.copyright': '© 2025 B.V.C国际联合公司. 保留所有权利.'
+            },
+            en: {
+                'navbar.logo': 'B.V.C International United Company',
+                'navbar.home': 'Home',
+                'navbar.about': 'About',
+                'navbar.services': 'Services',
+                'navbar.portfolio': 'Team Members',
+                'navbar.contact': 'Contact',
+                'hero.title': 'Excellence in everything we do',
+                'hero.subtitle': 'Crafting Digital Experiences that Inspire. We blend creativity and technology to build meaningful digital products.',
+                'hero.cta': 'Learn More',
+                'about.title': 'About Us',
+                'about.values': 'Core Values',
+                'about.valuesList': '',
+                'about.valuesList1': 'Creativity-Go beyond the limit and explore new possibilities',
+                'about.valuesList2': 'Excellence-strive for perfection in every detail of the work',
+                'about.valuesList3': 'Cooperation-Work closely with customers to understand the vision.',
+                'about.valuesList4': 'Innovation-Introducing new technologies and methods',
+                'about.mission': 'Our Mission',
+                'about.missionText': 'Born from a deep passion for design and a commitment to helping clients succeed in the digital realm. We believe design has the power to transform businesses and lives.',
+                'services.title': 'Services',
+                'services.webDesign': 'Web Design',
+                'services.webDesignDesc': 'Designing modern and user-friendly websites.',
+                'services.dev': 'Soft Development',
+                'services.devDesc': 'We develop applications。',
+                'services.branding': 'E-commerce',
+                'services.brandingDesc': 'We build online stores for product sales with integrated payment systems.',
+                'services.development0': 'Study Abroad',
+                'services.developmentDesc0': 'Professional study abroad consulting and language training programs to expand students international horizons.',
+                'services.development1': 'Labor Dispatch',
+                'services.developmentDesc1': 'We provide reliable personnel dispatch services to meet the flexible employment needs of companies.',
+                'services.development2': 'Translation',
+                'services.developmentDesc2': 'Professional multilingual translation services ensure accurate cross-cultural communication.',
+                'portfolio.title': 'Team Members',
+                'portfolio.webDesign1': 'Sally',
+                'portfolio.webDesignDesc1': 'Founder',
+                'portfolio.member1': 'Founder of B.V.C International United Company. With over 15 years of international business experience, leading the company strategic vision.',
+                'portfolio.webDesign2': 'Bob',
+                'portfolio.webDesignDesc2': 'Technical Architect',
+                'portfolio.member2': 'Expert in system architecture design with over 10 years of experience in cloud infrastructure and large-scale system optimization.',
+                'portfolio.webDesign3': 'Seagirl',
+                'portfolio.webDesignDesc3': 'Designer',
+                'portfolio.member3': 'Senior designer specializing in user interface design and user experience optimization, creating intuitive and attractive digital products.',
+                'contact.title': 'Contact Us',
+                'contact.desc': 'Ready to transform your digital presence? Contact us today.',
+                'contact.cta': 'Email Us',
+                'footer.copyright': '© 2025 B.V.C International United Company. All rights reserved.'
+            }
+        };
+
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有语言按钮
+            const langButtons = document.querySelectorAll('.language-btn');
+            
+            // 为每个按钮添加点击事件
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    
+                    // 更新活动按钮状态
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新页面内容语言
+                    updateLanguage(lang);
+                });
+            });
+            
+            // 默认显示日语
+            updateLanguage('ja');
         });
-      });
-      
-      // 语言翻译数据
-      const translations = {
-        en: {
-          'navbar-logo': 'B.V.C International United Company',
-          'hero-title': 'Excellence in Everything We Do',
-          'hero-subtitle': 'Crafting Digital Experiences that Inspire. We blend creativity and technology to build meaningful digital products.',
-          'about-title': 'Company Profile',
-          'about-desc': 'B.V.C International United Company is a digital solutions provider that combines creativity and technology. We are committed to turning our clients\' vision into reality.',
-          'services-title': 'Services',
-          'services-desc': 'We offer a wide range of services to meet all your business needs',
-          'service-1-title': 'Website Design',
-          'service-1-desc': 'We create responsive websites that ensure optimal display on all devices.',
-          'service-2-title': 'App Development',
-          'service-2-desc': 'We develop mobile applications for iOS and Android platforms.',
-          'service-3-title': 'E-commerce',
-          'service-3-desc': 'We build online stores for product sales with integrated payment systems.',
-          'service-4-title': 'Study Abroad',
-          'service-4-desc': 'Professional study abroad consulting and language training programs to expand students\' international horizons.',
-          'service-5-title': 'Labor Dispatch',
-          'service-5-desc': 'We provide reliable personnel dispatch services to meet the flexible employment needs of companies.',
-          'service-6-title': 'Translation',
-          'service-6-desc': 'Professional multilingual translation services ensure accurate cross-cultural communication.',
-          'portfolio-title': 'Team Members',
-          'portfolio-subtitle': 'Introducing key members of B.V.C International United Company',
-          'member-1-name': 'Sally',
-          'member-1-position': 'Founder',
-          'member-1-desc': 'Founder of B.V.C International United Company. With over 15 years of international business experience, leading the company\'s strategic vision.',
-          'member-1-link': 'View Works',
-          'member-2-name': 'Bob',
-          'member-2-position': 'Technical Architect',
-          'member-2-desc': 'Expert in system architecture design with over 10 years of experience in cloud infrastructure and large-scale system optimization.',
-          'member-2-link': 'View Works',
-          'member-3-name': 'Seagirl',
-          'member-3-position': 'Designer',
-          'member-3-desc': 'Senior designer specializing in user interface design and user experience optimization, creating intuitive and attractive digital products.',
-          'member-3-link': 'View Works',
-          'contact-title': 'Contact Us',
-          'contact-desc': 'See how we can help you. Discuss your project and let us help you achieve your goals.',
-          'contact-cta': 'Contact Us by Email',
-          'contact-address': '1-67-201 Ningyo 2-chome, Kounosu-shi, Saitama',
-          'footer-company-name': 'B.V.C International United Company',
-          'footer-about': 'Crafting Digital Experiences that Inspire. We blend creativity and technology to build meaningful digital products.',
-          'footer-quick-links': 'Quick Links',
-          'footer-link-home': 'Home',
-          'footer-link-about': 'About Us',
-          'footer-link-services': 'Services',
-          'footer-link-portfolio': 'Portfolio',
-          'footer-link-contact': 'Contact',
-          'footer-our-services': 'Our Services',
-          'footer-service-1': 'Website Design',
-          'footer-service-2': 'App Development',
-          'footer-service-3': 'E-commerce',
-          'footer-service-4': 'Study Abroad',
-          'footer-service-5': 'Labor Dispatch',
-          'footer-service-6': 'Translation',
-          'footer-contact-us': 'Contact Us',
-          'footer-address': '1-67-201 Ningyo 2-chome, Kounosu-shi, Saitama',
-          'footer-copyright': '© 2025 B.V.C International United Company. All rights reserved.'
-        },
-        zh: {
-          'navbar-logo': 'B.V.C国际联合公司',
-          'hero-title': '精益求精，铸就卓越',
-          'hero-subtitle': '打造激发灵感的数字体验。我们融合创意与技术，构建富有意义的数字产品。',
-          'about-title': '公司概要',
-          'about-desc': 'B.V.C国际联合公司是一家融合创意与技术的数字解决方案提供商。我们致力于将客户的愿景变为现实。',
-          'services-title': '服务',
-          'services-desc': '我们提供广泛的服务，满足您的所有业务需求',
-          'service-1-title': '网站设计',
-          'service-1-desc': '制作响应式设计网站，确保在所有设备上实现最佳显示效果。',
-          'service-2-title': '应用开发',
-          'service-2-desc': '开发支持iOS和Android的移动应用程序。',
-          'service-3-title': '电子商务',
-          'service-3-desc': '构建商品销售在线商店，并提供一体化的支付系统。',
-          'service-4-title': '留学游学',
-          'service-4-desc': '专业的留学咨询和语言培训项目，拓展学生的国际视野。',
-          'service-5-title': '劳务派遣',
-          'service-5-desc': '提供可靠的人才派遣服务，满足企业灵活的用工需求。',
-          'service-6-title': '翻译',
-          'service-6-desc': '多语言专业翻译服务，确保跨文化沟通的准确性。',
-          'portfolio-title': '团队成员介绍',
-          'portfolio-subtitle': 'B.V.C国际联合公司主要成员介绍',
-          'member-1-name': 'Sally',
-          'member-1-position': '创始人',
-          'member-1-desc': 'B.V.C国际联合公司的创始人，拥有15年以上国际业务经验，引领公司战略愿景。',
-          'member-1-link': '查看作品',
-          'member-2-name': 'Bob',
-          'member-2-position': '技术架构',
-          'member-2-desc': '系统架构设计专家，在云基础设施和大规模系统优化方面拥有10年以上经验。',
-          'member-2-link': '查看作品',
-          'member-3-name': 'Seagirl',
-          'member-3-position': '设计师',
-          'member-3-desc': '资深设计师，专注于用户界面设计和用户体验优化，创造直观且富有吸引力的数字产品。',
-          'member-3-link': '查看作品',
-          'contact-title': '联系我们',
-          'contact-desc': '联系我们，了解我们如何为您提供帮助。讨论您的项目，了解我们如何帮助您实现目标。',
-          'contact-cta': '邮件联系我们',
-          'contact-address': '埼玉县鸿巢市人形二丁目1-67-201号',
-          'footer-company-name': 'B.V.C国际联合公司',
-          'footer-about': '打造激发灵感的数字体验。我们融合创意与技术，构建富有意义的数字产品。',
-          'footer-quick-links': '快速链接',
-          'footer-link-home': '首页',
-          'footer-link-about': '关于我们',
-          'footer-link-services': '服务',
-          'footer-link-portfolio': '作品集',
-          'footer-link-contact': '联系我们',
-          'footer-our-services': '我们的服务',
-          'footer-service-1': '网站设计',
-          'footer-service-2': '应用开发',
-          'footer-service-3': '电子商务',
-          'footer-service-4': '留学游学',
-          'footer-service-5': '劳务派遣',
-          'footer-service-6': '翻译',
-          'footer-contact-us': '联系我们',
-          'footer-address': '埼玉县鸿巢市人形二丁目1-67-201号',
-          'footer-copyright': '© 2025 B.V.C国际联合公司. 保留所有权利.'
-        },
-        ja: {
-          'navbar-logo': 'B.V.C国際合同会社',
-          'hero-title': '卓越を追求し、品質を築く',
-          'hero-subtitle': 'インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。',
-          'about-title': '会社概要',
-          'about-desc': 'B.V.C国際合同会社は、クリエイティビティとテクノロジーを融合したデジタルソリューションプロバイダーです。私たちはクライアントのビジョンを現実に変えることに専念しています。',
-          'services-title': 'サービス',
-          'services-desc': '私たちは幅広いサービスを提供し、あらゆるビジネスニーズを満たします',
-          'service-1-title': 'ウェブサイトデザイン',
-          'service-1-desc': 'レスポンシブデザインのウェブサイトを制作し、すべてのデバイスで最適な表示を実現します。',
-          'service-2-title': 'アプリ開発',
-          'service-2-desc': 'iOSとAndroidに対応するモバイルアプリケーションを開発します。',
-          'service-3-title': '電子商取引',
-          'service-3-desc': '商品販売のオンラインストアを構築し、一体化した決済システムを提供します。',
-          'service-4-title': '留学',
-          'service-4-desc': '専門的な留学コンサルティングと語学研修プログラムで、学生の国際的な視野を広げます。',
-          'service-5-title': '労働者派遣',
-          'service-5-desc': '企業の柔軟な雇用ニーズを満たす信頼できる人材派遣サービスを提供します。',
-          'service-6-title': '翻訳',
-          'service-6-desc': '多言語の専門翻訳サービスにより、異文化コミュニケーションの正確性を確保します。',
-          'portfolio-title': 'チームメンバー紹介',
-          'portfolio-subtitle': 'B.V.C国際合同会社の主なメンバーをご紹介します',
-          'member-1-name': 'Sally',
-          'member-1-position': '創設者',
-          'member-1-desc': 'B.V.C国際合同会社の創設者です。15年以上の国際ビジネス経験を持ち、会社の戦略的ビジョンを率いています。',
-          'member-1-link': '作品を見る',
-          'member-2-name': 'Bob',
-          'member-2-position': '技術アーキテクト',
-          'member-2-desc': 'システムアーキテクチャ設計の専門家です。クラウドインフラと大規模システムの最適化に10年以上の経験があります。',
-          'member-2-link': '作品を見る',
-          'member-3-name': 'Seagirl',
-          'member-3-position': 'デザイナー',
-          'member-3-desc': '資深デザイナーで、ユーザーインターフェースデザインとユーザーエクスペリエンス最適化に専念し、直感的で魅力的なデジタル製品を作成します。',
-          'member-3-link': '作品を見る',
-          'contact-title': 'お問い合わせ',
-          'contact-desc': '私たちがどのようにお手伝いできるかをご確認ください。あなたのプロジェクトについて話し合い、目標達成を支援させていただきます。',
-          'contact-cta': 'メールでお問い合わせ',
-          'contact-address': '埼玉県鴻巣市人形二丁目1-67-201号',
-          'footer-company-name': 'B.V.C国際合同会社',
-          'footer-about': 'インスピレーションを与えるデジタルエクスペリエンスを創造します。クリエイティビティとテクノロジーを融合し、意味のあるデジタル製品を構築します。',
-          'footer-quick-links': 'クイックリンク',
-          'footer-link-home': 'ホーム',
-          'footer-link-about': '会社概要',
-          'footer-link-services': 'サービス',
-          'footer-link-portfolio': 'ポートフォリオ',
-          'footer-link-contact': 'お問い合わせ',
-          'footer-our-services': 'サービス',
-          'footer-service-1': 'ウェブサイトデザイン',
-          'footer-service-2': 'アプリ開発',
-          'footer-service-3': '電子商取引',
-          'footer-service-4': '留学',
-          'footer-service-5': '労働者派遣',
-          'footer-service-6': '翻訳',
-          'footer-contact-us': 'お問い合わせ',
-          'footer-address': '埼玉県鴻巣市人形二丁目1-67-201号',
-          'footer-copyright': '© 2025 B.V.C国際合同会社. 全著作権所有.'
+        
+        // 更新页面语言
+        function updateLanguage(lang) {
+            // 获取所有需要翻译的元素
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                
+                // 设置元素文本内容
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // 更新HTML语言属性
+            document.documentElement.lang = lang;
         }
-      };
-      
-      // 语言切换函数
-      function changeLanguage(lang) {
-        // 更新所有可翻译元素
-        for (const key in translations[lang]) {
-          const element = document.getElementById(key);
-          if (element) {
-            element.textContent = translations[lang][key];
-          }
-        }
-        
-        // 更新文档语言属性
-        document.documentElement.lang = lang;
-        
-        // 更新语言按钮样式 - 桌面
-        document.querySelectorAll('#lang-zh, #lang-en, #lang-ja').forEach(btn => {
-          btn.classList.remove('bg-purple-600', 'text-white');
-          btn.classList.add('bg-white/10', 'text-white/90');
-        });
-        document.getElementById(`lang-${lang}`).classList.remove('bg-white/10', 'text-white/90');
-        document.getElementById(`lang-${lang}`).classList.add('bg-purple-600', 'text-white');
-        
-        // 更新语言按钮样式 - 移动端
-        document.querySelectorAll('#mobile-lang-zh, #mobile-lang-en, #mobile-lang-ja').forEach(btn => {
-          btn.classList.remove('bg-purple-600', 'text-white');
-          btn.classList.add('bg-gray-100', 'text-gray-700');
-        });
-        document.getElementById(`mobile-lang-${lang}`).classList.remove('bg-gray-100', 'text-gray-700');
-        document.getElementById(`mobile-lang-${lang}`).classList.add('bg-purple-600', 'text-white');
-        
-        // 保存语言偏好
-        localStorage.setItem('preferred_language', lang);
-      }
-      
-      // 语言按钮事件监听
-      document.getElementById('lang-en').addEventListener('click', () => changeLanguage('en'));
-      document.getElementById('lang-zh').addEventListener('click', () => changeLanguage('zh'));
-      document.getElementById('lang-ja').addEventListener('click', () => changeLanguage('ja'));
-      
-      // 移动端语言按钮事件监听
-      document.getElementById('mobile-lang-en').addEventListener('click', () => changeLanguage('en'));
-      document.getElementById('mobile-lang-zh').addEventListener('click', () => changeLanguage('zh'));
-      document.getElementById('mobile-lang-ja').addEventListener('click', () => changeLanguage('ja'));
-      
-      // 页面加载时尝试从localStorage加载语言偏好
-      window.addEventListener('DOMContentLoaded', () => {
-        try {
-          const savedLang = localStorage.getItem('preferred_language');
-          if (savedLang && ['zh', 'en', 'ja'].includes(savedLang)) {
-            changeLanguage(savedLang);
-          }
-        } catch (e) {
-          console.error('Failed to load language preference:', e);
-        }
-      });
     </script>
-  </body>
+</body>
 </html>
